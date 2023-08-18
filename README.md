@@ -1,7 +1,16 @@
-# i2c_beacon
+# i2c_beacon_lp
 
 # TODO:
-Add ble peripheral
+`pm_device_state_set` was replaced with `pm_device_action_run`
+
+ex:
+```c
+//wake up
+pm_device_action_run(dev, PM_DEVICE_ACTION_RESUME)
+//sensor stuff
+pm_device_action_run(dev, PM_DEVICE_ACTION_SUSPEND)
+```
+> ./zephyr/doc/releases/release-notes-3.0.rst:794
 
 | Compatible devices|
 |---|
@@ -11,16 +20,14 @@ Add ble peripheral
 
 ## hardware / documentation
 - nRF5340DK / [nRF5340 doc](https://infocenter.nordicsemi.com/topic/struct_nrf53/struct/nrf5340.html), [nRF5340DK doc](https://infocenter.nordicsemi.com/index.jsp?topic=%2Fstruct_nrf53%2Fstruct%2Fnrf5340.html)
-- X-NUCLEO-IKS02A1 / [X-NUCLEO-IKS02A1 doc](https://www.st.com/en/ecosystems/x-nucleo-iks02a1.html#documentation)
+- Adafruit Si7021 / [Si7021 doc](https://learn.adafruit.com/adafruit-si7021-temperature-plus-humidity-sensor/downloads)
 
-<img src="https://github.com/droidecahedron/nrf-blueberry/assets/63935881/12612a0e-9f81-4431-8b22-f69704248f89" width=25% height=25%><img src="https://github.com/droidecahedron/nrf-blueberry/assets/63935881/0ff7470b-d5f0-46d7-bbbb-c867447e65c0" width=15% height=15%>
+<img src="https://github.com/droidecahedron/nrf-blueberry/assets/63935881/12612a0e-9f81-4431-8b22-f69704248f89" width=25% height=25%>
+<img src="https://github.com/droidecahedron/i2c_beacon_lp/assets/63935881/771948d8-2f2b-4309-9ebe-93af712902df", width=22% height=22%>
 
-> (nice little sensor pack, slots right onto the ARD headers of the DK)
 
+> (nice little sensor pack)
 
-### Relevant Samples
-- [X-NUCLEO-IKS02A1 shield: sensor hub](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/2.4.0/zephyr/samples/shields/x_nucleo_iks02a1/sensorhub/README.html)
-- [Bluetooth: Beacon](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/2.4.0/zephyr/samples/bluetooth/beacon/README.html)
 
 ## Power Management
 [Zephyr Power Management](https://docs.zephyrproject.org/2.7.0/reference/power_management/index.html)
@@ -30,6 +37,8 @@ Add ble peripheral
 [Device Runtime Power Management](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/zephyr/services/pm/device_runtime.html#pm-device-runtime)
 
 [Device Power Management Implementation Guidelines](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/zephyr/services/pm/device_runtime.html#implementation-guidelines)
+
+[nRF5x System Off sample](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/2.4.0/zephyr/samples/boards/nrf/system_off/README.html)
 
 ### Kconfigs
 ```
@@ -56,7 +65,9 @@ PM_DEVICE_RUNTIME
 ```
 
 ### System power management
-Looking at the [code for the nRF5340's power management](https://github.com/zephyrproject-rtos/zephyr/blob/69d0dce978e11a17e6605a42067374ca56767483/soc/arm/nordic_nrf/nrf53/power.c#L10-L28), you can see that the only supported power management state is PM_STATE_SOFT_OFF.
+Looking at the [code for the nRF5340's power management](https://github.com/zephyrproject-rtos/zephyr/blob/69d0dce978e11a17e6605a42067374ca56767483/soc/arm/nordic_nrf/nrf53/power.c#L10-L28), you can see that the only supported power management state is `PM_STATE_SOFT_OFF`.
+
+To wake from `PM_STATE_SOFT_OFF`, you can use a gpio, nfc, or [lpcomp](https://infocenter.nordicsemi.com/topic/ps_nrf5340/lpcomp.html?resultof=%22%6c%70%63%6f%6d%70%22%20).
 
 ##### system pm enum
 ```
@@ -130,20 +141,9 @@ PM_DEVICE_STATE_OFF
 > [Blog on NCS misconception has power measurement section](https://devzone.nordicsemi.com/nordic/nordic-blog/b/blog/posts/debunking-misconceptions-a-technical-analysis-of-nrf5-sdk-and-nrf-connect-sdk)
 
 
-
 # Screenshots
+No i2c, barely any optimizations, just removing logging, making advertising slow (10 second interval), gpio still present in this...
+![image](https://github.com/droidecahedron/i2c_beacon_lp/assets/63935881/861f06a2-97ab-45e7-86a9-92c02f2d67a0)
 
-## Running all the time, no optimizations, only i2c (no ble)
-![image](https://github.com/droidecahedron/i2c_beacon/assets/63935881/f19e3a50-1963-457e-87d8-4a483bb77083)
 
-## Updating logs to be offline in prj.conf and hci_rpmsg.conf
-in prj.conf
-```
-CONFIG_LOG=n
-CONFIG_SERIAL=n
-```
-
-in `child_image/hci_rpmsg.conf` with the prj.conf pulled from `C:\..\ncs\v2.4.0\zephyr\samples\bluetooth\hci_rpmsg`, made same changes.
-
-![image](https://github.com/droidecahedron/i2c_beacon/assets/63935881/4d5043d6-a617-476b-8937-4ab0d4b70c68)
-
+Can optimize a lot further.
