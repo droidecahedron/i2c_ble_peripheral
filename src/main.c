@@ -21,7 +21,6 @@ LOG_MODULE_REGISTER(i2c_ble_p);
 void main(void)
 {
 
-    int ret;
     float humidity;
     float temperature_C;
 
