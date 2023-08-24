@@ -13,10 +13,10 @@
 
 &i2c1 {
 
-    mysensor: mysensor@4a{
+    si7021: si7021@40{
         compatible = "i2c-device";
         status = "okay";
-        reg = < 0x4a >;
+        reg = < 0x40 >;
     };
 };
 
