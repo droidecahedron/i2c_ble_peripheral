@@ -1,16 +1,5 @@
 # i2c_beacon_lp
 
-# TODO:
-`pm_device_state_set` was replaced with `pm_device_action_run`
-
-ex:
-```c
-//wake up
-pm_device_action_run(dev, PM_DEVICE_ACTION_RESUME)
-//sensor stuff
-pm_device_action_run(dev, PM_DEVICE_ACTION_SUSPEND)
-```
-> ./zephyr/doc/releases/release-notes-3.0.rst:794
 
 | Compatible devices|
 |---|
@@ -147,3 +136,12 @@ No i2c, barely any optimizations, just removing logging, making advertising slow
 
 
 Can optimize a lot further.
+
+
+![image](https://github.com/droidecahedron/i2c_ble_peripheral/assets/63935881/83e01ada-7f7f-4d79-a479-23c0a79e5002)
+
+on phone side:
+
+![image](https://github.com/droidecahedron/i2c_ble_peripheral/assets/63935881/ca1de9c6-9ebd-43f1-86ab-cafbc68183ab) ![image](https://github.com/droidecahedron/i2c_ble_peripheral/assets/63935881/32dac790-caf8-442c-bf25-ff972344f4b4)
+
+
