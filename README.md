@@ -135,7 +135,7 @@ No i2c, barely any optimizations, just removing logging, making advertising slow
 ![image](https://github.com/droidecahedron/i2c_beacon_lp/assets/63935881/861f06a2-97ab-45e7-86a9-92c02f2d67a0)
 
 
-Can optimize a lot further.
+Can optimize a lot further, but 235 mAh / 0.28 mA lasts a pretty long time.
 
 
 ![image](https://github.com/droidecahedron/i2c_ble_peripheral/assets/63935881/83e01ada-7f7f-4d79-a479-23c0a79e5002)
