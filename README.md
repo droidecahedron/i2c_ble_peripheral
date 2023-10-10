@@ -3,9 +3,11 @@
 
 | Compatible devices|
 |---|
+| nRF52832DK |
 | nRF52840DK*|
-| nRF5340DK|
+| nRF5340DK**|
 > *should work, haven't tried.
+> **need to change i2c instance from 0 to 1.
 
 ## hardware / documentation
 - nRF5340DK / [nRF5340 doc](https://infocenter.nordicsemi.com/topic/struct_nrf53/struct/nrf5340.html), [nRF5340DK doc](https://infocenter.nordicsemi.com/index.jsp?topic=%2Fstruct_nrf53%2Fstruct%2Fnrf5340.html)
