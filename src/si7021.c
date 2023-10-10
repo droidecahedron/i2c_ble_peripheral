@@ -17,7 +17,7 @@ LOG_MODULE_REGISTER(si7021);
 #define I2C_NODE DT_NODELABEL(si7021)
 
 static const struct i2c_dt_spec dev_i2c = I2C_DT_SPEC_GET(I2C_NODE);
-const struct device *i2c_device = DEVICE_DT_GET(DT_NODELABEL(i2c1));
+const struct device *i2c_device = DEVICE_DT_GET(DT_NODELABEL(i2c0));
 
 bool si7021_init(void)
 {
