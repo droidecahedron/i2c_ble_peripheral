@@ -60,6 +60,8 @@ Looking at the [code for the nRF5340's power management](https://github.com/zeph
 
 To wake from `PM_STATE_SOFT_OFF`, you can use a gpio, nfc, or [lpcomp](https://infocenter.nordicsemi.com/topic/ps_nrf5340/lpcomp.html?resultof=%22%6c%70%63%6f%6d%70%22%20).
 
+Review: https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/zephyr/services/pm/system.html
+
 ##### system pm enum
 ```
 PM_STATE_ACTIVE
