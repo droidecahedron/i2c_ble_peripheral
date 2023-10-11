@@ -46,13 +46,9 @@ device drivers to do any necessary power management operations
 like turning off device clocks and peripherals. The device drivers
 may also save and restore states in these hook functions.
 
-PM_DEVICE_RUNTIME
-	bool "Runtime Device Power Management"
-	select EVENTS
-	help
-	  Enable Runtime Power Management to save power. With device runtime PM
-	  enabled, devices can be suspended or resumed based on the device
-	  usage even while the CPU or system is running.
+CONFIG_PM_DEVICE_RUNTIME: Enable Runtime Power Management to save power.
+With device runtime PM enabled, devices can be suspended or resumed based on the device
+usage even while the CPU or system is running.
 ```
 
 ### System power management
