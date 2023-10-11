@@ -20,7 +20,7 @@
 > (nice little sensor pack)
 
 
-## Power Management
+# Power Management
 [Zephyr Power Management](https://docs.zephyrproject.org/2.7.0/reference/power_management/index.html)
 
 [Device Power Management](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/zephyr/services/pm/device.html)
@@ -31,7 +31,7 @@
 
 [nRF5x System Off sample](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/2.4.0/zephyr/samples/boards/nrf/system_off/README.html)
 
-### Kconfigs
+## Kconfigs
 ```
 CONFIG_PM: This option enables the board to implement extra power management
 policies whenever the kernel becomes idle. The kernel informs the
@@ -51,7 +51,7 @@ With device runtime PM enabled, devices can be suspended or resumed based on the
 usage even while the CPU or system is running.
 ```
 
-### System power management
+# System power management
 Looking at the [code for the nRF5340's power management](https://github.com/zephyrproject-rtos/zephyr/blob/69d0dce978e11a17e6605a42067374ca56767483/soc/arm/nordic_nrf/nrf53/power.c#L10-L28), you can see that the only supported power management state is `PM_STATE_SOFT_OFF`.
 
 To wake from `PM_STATE_SOFT_OFF`, you can use a gpio, nfc, or [lpcomp](https://infocenter.nordicsemi.com/topic/ps_nrf5340/lpcomp.html?resultof=%22%6c%70%63%6f%6d%70%22%20).
@@ -89,7 +89,7 @@ PM_STATE_SOFT_OFF
     This state consumes a minimal amount of power and requires a large latency in order to return to runtime active state. The contents of system(CPU and memory) will not be preserved, so the system will be restarted as if from initial power-up and kernel boot.
 ```
 
-### Device power management
+# Device power management
 Each driver supports certain power management modes as well. 
 - [i2c twi](https://github.com/zephyrproject-rtos/zephyr/blob/fd346e846f1474468cd2bd67e7208b9560edd60e/drivers/i2c/i2c_nrfx_twi.c#L234-L269)
 - [i2c twim](https://github.com/zephyrproject-rtos/zephyr/blob/fd346e846f1474468cd2bd67e7208b9560edd60e/drivers/i2c/i2c_nrfx_twim.c#L304-L337)
