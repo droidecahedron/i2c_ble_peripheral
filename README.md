@@ -110,6 +110,9 @@ PM_DEVICE_STATE_SUSPEND
     device is in SUSPEND power state
     Most device context is lost by the hardware. Device drivers must save and restore or reinitialize any context lost by the hardware
 
+PM_DEVICE_STATE_RESUME
+    resume the device
+
 PM_DEVCIE_STATE_FORCE_SUSPEND
     device is in force SUSPEND power state
     Driver puts the device in suspended state after completing the ongoing transactions and will not process any queued work or will not take any new requests for processing. Most device context is lost by the hardware. Device drivers must save and restore or reinitialize any context lost by the hardware.
