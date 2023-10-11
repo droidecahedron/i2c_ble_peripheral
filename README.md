@@ -96,7 +96,8 @@ Each driver supports certain power management modes as well.
 - [i2c twi](https://github.com/zephyrproject-rtos/zephyr/blob/fd346e846f1474468cd2bd67e7208b9560edd60e/drivers/i2c/i2c_nrfx_twi.c#L234-L269)
 - [i2c twim](https://github.com/zephyrproject-rtos/zephyr/blob/fd346e846f1474468cd2bd67e7208b9560edd60e/drivers/i2c/i2c_nrfx_twim.c#L304-L337)
 
-https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/zephyr/services/pm/device.html#device-power-management-states
+![image](https://github.com/droidecahedron/i2c_ble_peripheral/assets/63935881/61dfdce8-a610-408b-a568-07e6d3a1b525)
+*from https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/zephyr/services/pm/device.html#device-power-management-states*
 
 (In the case of i2c twi/twim, they only have `PM_DEVICE_ACTION_RESUME` and `PM_DEVICE_ACTION_SUSPEND`)
 > The TWIM peripheral uses DMA, and the TWI peripheral does not. That is not the only difference, but it is the most significant.
