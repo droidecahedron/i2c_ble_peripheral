@@ -96,31 +96,7 @@ Each driver supports certain power management modes as well.
 - [i2c twi](https://github.com/zephyrproject-rtos/zephyr/blob/fd346e846f1474468cd2bd67e7208b9560edd60e/drivers/i2c/i2c_nrfx_twi.c#L234-L269)
 - [i2c twim](https://github.com/zephyrproject-rtos/zephyr/blob/fd346e846f1474468cd2bd67e7208b9560edd60e/drivers/i2c/i2c_nrfx_twim.c#L304-L337)
 
-##### device pm enum
-```
-PM_DEVICE_STATE_ACTIVE
-    device is in ACTIVE power state
-    Normal operation of the device. All device context is retained.
-
-PM_DEVICE_STATE_LOW_POWER
-    device is in LOW power state
-    Device context is preserved by the HW and need not be restored by the driver.
-
-PM_DEVICE_STATE_SUSPEND
-    device is in SUSPEND power state
-    Most device context is lost by the hardware. Device drivers must save and restore or reinitialize any context lost by the hardware
-
-PM_DEVICE_STATE_RESUME
-    resume the device
-
-PM_DEVCIE_STATE_FORCE_SUSPEND
-    device is in force SUSPEND power state
-    Driver puts the device in suspended state after completing the ongoing transactions and will not process any queued work or will not take any new requests for processing. Most device context is lost by the hardware. Device drivers must save and restore or reinitialize any context lost by the hardware.
-
-PM_DEVICE_STATE_OFF
-    device is in OFF power state
-    Power has been fully removed from the device. The device context is lost when this state is entered, so the OS software will reinitialize the device when powering it back on
-```
+https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/zephyr/services/pm/device.html#device-power-management-states
 
 (In the case of i2c twi/twim, they only have `PM_DEVICE_ACTION_RESUME` and `PM_DEVICE_ACTION_SUSPEND`)
 > The TWIM peripheral uses DMA, and the TWI peripheral does not. That is not the only difference, but it is the most significant.
