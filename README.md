@@ -5,6 +5,11 @@ It also utilizes device power management API with the i2c device for when it is 
 
 For more details on exchange in BLE (characteristics, etc), visit this section in the [Nordic DevAcademy]([url](https://academy.nordicsemi.com/courses/bluetooth-low-energy-fundamentals/lessons/lesson-4-bluetooth-le-data-exchange/)).
 
+File | Function
+--- | ---
+main.c | main application
+si7021.c | si7021 sensor inits, commands, and power management for i2c device
+services/* | shs.c/h (sensorhubservice) for BLE service to be able to read humidity and temperature from phone
 
 | Compatible devices|
 |---|
@@ -12,6 +17,7 @@ For more details on exchange in BLE (characteristics, etc), visit this section i
 | nRF52840DK*|
 | nRF5340DK**|
 > *should work, haven't tried.
+> 
 > **need to change i2c instance from 0 to 1.
 
 ## hardware / documentation
