@@ -148,7 +148,12 @@ on phone side:
 
 # optimizing further
 you can add a deep sleep mode.
+
 This sensor board also has an onboard regulator to supply power and I'm not turning it off in software, so you could get a better sensor.
+
+You can disable the ADC or let it go to sleep. It's just enabled and running in this application and not being used.
+
+You can increase connection interval and connection event length (CI/CE) to make the power draw lower while connected.
 
 # debugging
 The settings are set up to flash and measure, active development will be annoying with the default settings. See below to make it more convenient: 
