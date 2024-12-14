@@ -131,11 +131,11 @@ Each driver supports certain power management modes as well.
 # Screenshots
 PM on i2c, barely any optimizations, just removing logging, making advertising slow (10 second interval), gpio still present in this...
 
-## While connected
-![image](https://github.com/user-attachments/assets/3c399c40-199c-41a7-a6b0-7e5324414d2b)
-
 ## While advertising
 ![image](https://github.com/user-attachments/assets/12875418-2573-4624-90e2-5b3cd66e513d)
+
+## While connected
+![image](https://github.com/user-attachments/assets/3c399c40-199c-41a7-a6b0-7e5324414d2b)
 
 Can optimize a lot further, but 235 mAh / 0.05 mA lasts a pretty long time.
 
