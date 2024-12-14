@@ -17,14 +17,14 @@ LOG_MODULE_REGISTER(si7021);
 #define I2C_NODE DT_NODELABEL(si7021)
 
 static const struct i2c_dt_spec dev_i2c = I2C_DT_SPEC_GET(I2C_NODE);
-const struct device *i2c_device = DEVICE_DT_GET(DT_NODELABEL(i2c0));
+const struct device *i2c_device = DEVICE_DT_GET(DT_NODELABEL(i2c22));
 
 bool si7021_init(void)
 {
     int err;
     if (!device_is_ready(dev_i2c.bus))
     {
-        printk("I2C bus %s is not ready!\n\r", dev_i2c.bus->name);
+        printk("I2C bus %s is not ready!", dev_i2c.bus->name);
         return false;
     }
 
@@ -32,7 +32,7 @@ bool si7021_init(void)
     err = i2c_write_dt(&dev_i2c, cmd, sizeof(cmd));
     if (err != 0)
     {
-        LOG_WRN("Failed to write to i2c dev addr\n");
+        LOG_WRN("Failed to write to i2c dev addr");
         return false;
     }
 
@@ -51,8 +51,8 @@ float si7021_read_humidity(void)
 
     if (!device_is_ready(dev_i2c.bus))
     {
-        LOG_WRN("I2C bus %s is not ready!\n\r", dev_i2c.bus->name);
-        return false;
+        LOG_WRN("I2C bus %s is not ready!", dev_i2c.bus->name);
+        return 0;
     }
 
     // start conversion
@@ -61,7 +61,7 @@ float si7021_read_humidity(void)
     err = i2c_write_dt(&dev_i2c, cmd, sizeof(cmd));
     if (err != 0)
     {
-        LOG_WRN("Failed to write/read to i2c dev\n");
+        LOG_WRN("Failed to write/read to i2c dev");
         return SI7021_ERRCODE;
     }
     k_msleep(20); // conversion time
@@ -69,7 +69,7 @@ float si7021_read_humidity(void)
     err = i2c_read_dt(&dev_i2c, buf, sizeof(buf));
     if (err != 0)
     {
-        LOG_WRN("Failed to write/read to i2c dev\n");
+        LOG_WRN("Failed to write/read to i2c dev");
         return SI7021_ERRCODE;
     }
     
@@ -88,8 +88,8 @@ float si7021_read_temperature(void)
 
     if (!device_is_ready(dev_i2c.bus))
     {
-        printk("I2C bus %s is not ready!\n\r", dev_i2c.bus->name);
-        return false;
+        printk("I2C bus %s is not ready!", dev_i2c.bus->name);
+        return 0;
     }
 
     // start conversion
@@ -98,7 +98,7 @@ float si7021_read_temperature(void)
     err = i2c_write_dt(&dev_i2c, cmd, sizeof(cmd));
     if (err != 0)
     {
-        LOG_WRN("Failed to write/read to i2c dev\n");
+        LOG_WRN("Failed to write/read to i2c dev");
         return SI7021_ERRCODE;
     }
 
@@ -107,7 +107,7 @@ float si7021_read_temperature(void)
     err = i2c_read_dt(&dev_i2c, buf, sizeof(buf));
     if (err != 0)
     {
-        LOG_WRN("Failed to write/read to i2c dev\n");
+        LOG_WRN("Failed to write/read to i2c dev");
         return SI7021_ERRCODE;
     }
 
