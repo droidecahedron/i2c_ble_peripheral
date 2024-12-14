@@ -83,12 +83,12 @@ void sensor_hub_update_temperature(struct bt_conn *conn, const uint8_t *data, ui
         // Send the notification
 	    if(bt_gatt_notify_cb(conn, &params))
         {
-            LOG_ERR("Error, unable to send notification\n");
+            LOG_ERR("Error, unable to send notification");
         }
     }
     else
     {
-        LOG_WRN("Warning, notification not enabled for temperature characteristic\n");
+        LOG_WRN("Warning, notification not enabled for temperature characteristic");
     }
 }
 
@@ -110,11 +110,11 @@ void sensor_hub_update_humidity(struct bt_conn *conn, const uint8_t *data, uint1
         // Send the notification
 	    if(bt_gatt_notify_cb(conn, &params))
         {
-            LOG_ERR("Error, unable to send notification\n");
+            LOG_ERR("Error, unable to send notification");
         }
     }
     else
     {
-        LOG_WRN("Warning, notification not enabled for humidity characteristic\n");
+        LOG_WRN("Warning, notification not enabled for humidity characteristic");
     }
 }

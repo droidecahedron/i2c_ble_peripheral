@@ -11,9 +11,14 @@
 #include <zephyr/logging/log.h>
 
 #include <zephyr/bluetooth/bluetooth.h>
+#include <zephyr/bluetooth/hci.h>
 #include <zephyr/bluetooth/gap.h>
 #include <zephyr/bluetooth/uuid.h>
 #include <zephyr/bluetooth/conn.h>
+#include <zephyr/bluetooth/gatt.h>
+
+
+#include <zephyr/settings/settings.h>
 
 #include "inc/si7021.h"
 #include "services/ble_shs.h"
@@ -25,11 +30,11 @@
 
 LOG_MODULE_REGISTER(main);
 
-static struct bt_le_adv_param *adv_param = BT_LE_ADV_PARAM(
+static const struct bt_le_adv_param *adv_param = BT_LE_ADV_PARAM(
 	(BT_LE_ADV_OPT_CONNECTABLE |
 	 BT_LE_ADV_OPT_USE_IDENTITY), /* Connectable advertising and use identity address */
-	800, /* Min Advertising Interval 500ms (800*0.625ms) */
-	801, /* Max Advertising Interval 500.625ms (801*0.625ms) */
+	16383, /* Min Advertising Interval 500ms (800*0.625ms) 16383*/
+	16384, /* Max Advertising Interval 500.625ms (801*0.625ms) 16384 */
 	NULL); /* Set to NULL for undirected advertising */
 
 
@@ -92,7 +97,7 @@ void bt_send_data_thread(void)
 }
 
 //main is also our sensor sample thread.
-void main(void)
+int main(void)
 {
     int err;
 
@@ -104,35 +109,38 @@ void main(void)
 	if(err) 
 	{
 		LOG_ERR("Bluetooth init failed (err %d)\n", err);
-		return;
+		return -1;
 	}
-	LOG_INF("Bluetooth initialized\n");
+	LOG_INF("Bluetooth initialized");
 
 	if(IS_ENABLED(CONFIG_SETTINGS)) 
 	{
 		settings_load();
 	}
 
-	err = bt_le_adv_start(BT_LE_ADV_CONN, ad, ARRAY_SIZE(ad),
+	err = bt_le_adv_start(adv_param, ad, ARRAY_SIZE(ad),
 			      sd, ARRAY_SIZE(sd));
 	if(err) 
 	{
 		LOG_ERR("Advertising failed to start (err %d)\n", err);
-		return;
+		return -2;
 	}
 	LOG_INF("Advertising successfully started\n");
 
+	float humidity, temperature_C = 0;
     while(1)
     {    
-        float humidity = si7021_read_humidity();
-        float temperature_C = si7021_read_temperature();
+        humidity = si7021_read_humidity();
+        temperature_C = si7021_read_temperature();
 
         bt_humidity = (int32_t)(humidity);
         bt_temperature = (int32_t)(temperature_C);
 
-        LOG_INF("Humidity: %.2f, Temperature (C) : %.2f", humidity, temperature_C);
+        LOG_INF("Humidity: %.2f, Temperature (C) : %.2f", (double)humidity, (double)temperature_C);
         k_msleep(SENSOR_SLEEP_TIME_MS);
     }
+	
+	return 0;
 }
 
 K_THREAD_DEFINE(bt_send_data_thread_id, STACKSIZE, bt_send_data_thread, NULL, NULL, NULL, PRIORITY, 0, 0);

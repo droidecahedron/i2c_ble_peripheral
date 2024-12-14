@@ -1,0 +1,4 @@
+west:
+  command: /home/ddhd-dev/.local/bin/west build -b nrf52840dk/nrf52840 -d test --
+  topdir: /home/ddhd-dev/ncs/v2.8.0
+  version: 1.3.0

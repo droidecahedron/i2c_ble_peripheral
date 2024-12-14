@@ -13,19 +13,24 @@ services/* | shs.c/h (sensorhubservice) for BLE service to be able to read humid
 
 | Compatible devices|
 |---|
+| nRF54L15DK*** |
 | nRF52832DK |
 | nRF52840DK*|
 | nRF5340DK**|
 > *should work, haven't tried.
 > 
 > **need to change i2c instance from 0 to 1.
+> 
+> ***need to change i2c instance to 22
 
 ## hardware / documentation
-- nRF5340DK / [nRF5340 doc](https://infocenter.nordicsemi.com/topic/struct_nrf53/struct/nrf5340.html), [nRF5340DK doc](https://infocenter.nordicsemi.com/index.jsp?topic=%2Fstruct_nrf53%2Fstruct%2Fnrf5340.html)
+- nRF54L15DK / [nRF54L15 doc](https://docs.nordicsemi.com/bundle/ps_nrf54L15/page/keyfeatures_html5.html), [nRF54L15DK doc](https://docs.nordicsemi.com/bundle/ug_nrf54l15_dk/page/UG/nRF54L15_DK/intro/intro.html)
 - Adafruit Si7021 / [Si7021 doc](https://learn.adafruit.com/adafruit-si7021-temperature-plus-humidity-sensor/downloads)
 
-<img src="https://github.com/droidecahedron/nrf-blueberry/assets/63935881/12612a0e-9f81-4431-8b22-f69704248f89" width=25% height=25%>
-<img src="https://github.com/droidecahedron/i2c_beacon_lp/assets/63935881/771948d8-2f2b-4309-9ebe-93af712902df", width=22% height=22%>
+![image](https://github.com/user-attachments/assets/5d618d76-0613-45c1-8b92-e4872182b46c)
+
+![image](https://github.com/user-attachments/assets/36c66a18-5e2b-4c88-ae67-0479ae19e857)
+
 
 
 > (nice little sensor pack)
@@ -124,11 +129,15 @@ Each driver supports certain power management modes as well.
 
 
 # Screenshots
-No i2c, barely any optimizations, just removing logging, making advertising slow (10 second interval), gpio still present in this...
-![image](https://github.com/droidecahedron/i2c_beacon_lp/assets/63935881/861f06a2-97ab-45e7-86a9-92c02f2d67a0)
+PM on i2c, barely any optimizations, just removing logging, making advertising slow (10 second interval), gpio still present in this...
 
+## While advertising
+![image](https://github.com/user-attachments/assets/12875418-2573-4624-90e2-5b3cd66e513d)
 
-Can optimize a lot further, but 235 mAh / 0.28 mA lasts a pretty long time.
+## While connected
+![image](https://github.com/user-attachments/assets/3c399c40-199c-41a7-a6b0-7e5324414d2b)
+
+Can optimize a lot further, but 235 mAh / 0.05 mA lasts a pretty long time.
 
 
 ![image](https://github.com/droidecahedron/i2c_ble_peripheral/assets/63935881/83e01ada-7f7f-4d79-a479-23c0a79e5002)
@@ -137,4 +146,12 @@ on phone side:
 
 ![image](https://github.com/droidecahedron/i2c_ble_peripheral/assets/63935881/ca1de9c6-9ebd-43f1-86ab-cafbc68183ab) ![image](https://github.com/droidecahedron/i2c_ble_peripheral/assets/63935881/32dac790-caf8-442c-bf25-ff972344f4b4)
 
+# optimizing further
+you can add a deep sleep mode.
+This sensor board also has an onboard regulator to supply power and I'm not turning it off in software, so you could get a better sensor.
 
+# debugging
+The settings are set up to flash and measure, active development will be annoying with the default settings. See below to make it more convenient: 
+
+- re-enable logging and UART via `prj.conf`, it's a power hit.
+- lower the advertising interval, it's presently at the max. You don't connect very quickly with the max setting.
