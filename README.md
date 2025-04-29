@@ -3,7 +3,7 @@
 Some boiler plate code to show abstracting BLE services to a different file in NCS/Zephyr ecosystem, retrieving i2c sensor data from a device and then advertising it as custom characteristics.
 It also utilizes device power management API with the i2c device for when it is not needed.
 
-For more details on exchange in BLE (characteristics, etc), visit this section in the [Nordic DevAcademy]([url](https://academy.nordicsemi.com/courses/bluetooth-low-energy-fundamentals/lessons/lesson-4-bluetooth-le-data-exchange/)).
+For more details on exchange in BLE (characteristics, etc), visit this section in the [Nordic DevAcademy](https://academy.nordicsemi.com/courses/bluetooth-low-energy-fundamentals/lessons/lesson-4-bluetooth-le-data-exchange/).
 
 File | Function
 --- | ---
