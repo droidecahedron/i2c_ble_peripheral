@@ -21,7 +21,7 @@ services/* | shs.c/h (sensorhubservice) for BLE service to be able to read humid
 > 
 > **need to change i2c instance from 0 to 1.
 > 
-> ***need to change i2c instance to 22
+> ***need to change i2c instance to 22. Your DK might be set up for 1V8 out of the box, you can use the [board configurator](https://docs.nordicsemi.com/bundle/nrf-connect-board-configurator/page/index.html) to bump the supply up to talk to the Si7021 which is 1V9-3V6.
 
 ## hardware / documentation
 - nRF54L15DK / [nRF54L15 doc](https://docs.nordicsemi.com/bundle/ps_nrf54L15/page/keyfeatures_html5.html), [nRF54L15DK doc](https://docs.nordicsemi.com/bundle/ug_nrf54l15_dk/page/UG/nRF54L15_DK/intro/intro.html)
